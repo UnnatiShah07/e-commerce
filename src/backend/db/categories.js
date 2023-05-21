@@ -45,12 +45,6 @@ export const categories = [
   {
     id: uuid(),
     image:
-      "https://cdn.shopify.com/s/files/1/0579/7924/0580/products/philodendron-broken-heart-with-hanging-pot-31808433094788.jpg?v=1675607411&width=375",
-    category: "Hanging Basket Plants",
-  },
-  {
-    id: uuid(),
-    image:
       "https://cdn.shopify.com/s/files/1/0579/7924/0580/files/Aimage_3.jpg?v=1682523121",
     category: "Indoor",
   },
