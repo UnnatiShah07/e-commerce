@@ -33,11 +33,16 @@ const Login = () => {
           foundUser: { firstName, lastName, email, _id },
         } = response;
         localStorage.setItem("token", encodedToken);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ firstName, lastName, email, _id })
+        );
         dispatch({ type: "SET_TOKEN", payload: encodedToken });
         dispatch({
           type: "SET_USER_DETAILS",
           payload: { firstName, lastName, email, _id },
         });
+        navigate("/profile");
       })
       .catch((error) => {
         setLoading(false);

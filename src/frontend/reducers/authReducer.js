@@ -1,4 +1,8 @@
-const authInitState = { token: "", userDetails: {}, loading: "" };
+const authInitState = {
+  token: localStorage.getItem("token") ?? "",
+  userDetails: JSON.parse(localStorage.getItem("user")) ?? {},
+  loading: "",
+};
 
 const authReducer = (state, action) => {
   switch (action.type) {
