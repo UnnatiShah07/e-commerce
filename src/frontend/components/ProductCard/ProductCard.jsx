@@ -1,17 +1,42 @@
 import "./productCard.css";
 import { Rating } from "react-simple-star-rating";
 import { FaStar } from "react-icons/fa";
-import { FaRupeeSign } from "react-icons/fa";
+import { HiOutlineHeart } from "react-icons/hi";
+import { HiHeart } from "react-icons/hi";
+import { useState } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 
-const ProductCard = ({ item }) => {
+const ProductCard = ({ item, isProduct }) => {
+  const [isWishlist, setIsWishlist] = useState(false);
+  const navigate = useNavigate();
+
+  const redirectToDetails = () =>
+    navigate(isProduct ? `${item.id}` : `products/${item.id}`, {
+      state: { item },
+    });
+
   return (
     <div className="product-card" key={item.id}>
       <div>
-        <div style={{ overflow: "hidden",height:"250px" }}>
-          <img className="product-image" src={item.image} alt="plantPhoto" />
+        <div style={{ overflow: "hidden", height: "250px" }}>
+          <img
+            className="product-image"
+            src={item.image}
+            alt="plantPhoto"
+            onClick={redirectToDetails}
+          />
         </div>
         <p className="product-text">{item.name}</p>
         <div className="discount">-{item.discount}%</div>
+        {isProduct && (
+          <div className="wishlist" onClick={() => setIsWishlist(!isWishlist)}>
+            {isWishlist ? (
+              <HiHeart size={20} color="red" />
+            ) : (
+              <HiOutlineHeart size={20} />
+            )}
+          </div>
+        )}
       </div>
 
       <div>
@@ -30,7 +55,11 @@ const ProductCard = ({ item }) => {
           <span className="rupees-icon"> ₹ </span>
           {item.price}
         </p>
-        <button>View Product</button>
+        {isProduct ? (
+          <button>Add to Cart</button>
+        ) : (
+          <button onClick={redirectToDetails}>View Product</button>
+        )}
       </div>
     </div>
   );
