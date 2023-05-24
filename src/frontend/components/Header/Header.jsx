@@ -4,8 +4,13 @@ import Plant from "../../assets/svg/seedling-icon.svg";
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineHeart } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const redirectToLogin = () => navigate("/login");
+
   return (
     <div className="header-container">
       <div className="logo-container">
@@ -17,7 +22,7 @@ const Header = () => {
         <input type="text" placeholder="Search..." className="search-input" />
       </div>
       <div className="btn-container">
-        <button className="login-btn">Login</button>
+        <button className="login-btn" onClick={redirectToLogin}>Login</button>
         <div className="pos-relative">
           <HiOutlineHeart size={25} />
           <div className="popup">2</div>
