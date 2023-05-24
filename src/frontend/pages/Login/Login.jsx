@@ -4,7 +4,10 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import { PasswordInput } from "../../components";
+import { Loader, PasswordInput } from "../../components";
+import { handleLogin } from "../../apiServices";
+import { useCustomToast } from "../../utils";
+import { useAuthContext } from "../../contexts/authContext";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -12,9 +15,35 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const [isLoading, setLoading] = useState(false);
+
   const navigate = useNavigate();
+  const { dispatch } = useAuthContext();
+  const { showToast } = useCustomToast();
 
   const redirectToSignup = () => navigate("/signup");
+
+  const loginUser = (values) => {
+    setLoading(true);
+    handleLogin(values)
+      .then((response) => {
+        setLoading(false);
+        const {
+          encodedToken,
+          foundUser: { firstName, lastName, email, _id },
+        } = response;
+        localStorage.setItem("token", encodedToken);
+        dispatch({ type: "SET_TOKEN", payload: encodedToken });
+        dispatch({
+          type: "SET_USER_DETAILS",
+          payload: { firstName, lastName, email, _id },
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        showToast(error.message);
+      });
+  };
 
   return (
     <div className="login-page">
@@ -27,9 +56,7 @@ const Login = () => {
             password: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
+          onSubmit={(values) => loginUser(values)}
         >
           {({
             values,
@@ -73,6 +100,7 @@ const Login = () => {
           )}
         </Formik>
       </div>
+      {isLoading && <Loader />}
     </div>
   );
 };

@@ -1,16 +1,17 @@
 import "./signup.css";
 import { useNavigate } from "react-router-dom";
 import { MdArrowForwardIos } from "react-icons/md";
-import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
 import { PasswordInput } from "../../components";
+import { handleSignup } from "../../apiServices";
+import { useAuthContext } from "../../contexts/authContext";
+import { useCustomToast } from "../../utils";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
-  fname: Yup.string().required("First name is required"),
-  lname: Yup.string().required("Last name is required"),
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
@@ -20,11 +21,33 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signup = () => {
-  const [showPwd, setShowPwd] = useState(false);
-  const [showConfirmPwd, setShowConfirmPwd] = useState(false);
   const navigate = useNavigate();
+  const { dispatch } = useAuthContext();
+  const { showToast } = useCustomToast();
 
   const redirectToLogin = () => navigate("/login");
+
+  const registerNewUser = (values) => {
+    const { email, firstName, lastName, password } = values;
+    handleSignup({ email, firstName, lastName, password })
+      .then((response) => {
+        console.log(response);
+        const {
+          encodedToken,
+          createdUser: { firstName, lastName, email, _id },
+        } = response;
+        localStorage.setItem("token", encodedToken);
+        dispatch({ type: "SET_TOKEN", payload: encodedToken });
+        dispatch({
+          type: "SET_USER_DETAILS",
+          payload: { firstName, lastName, email, _id },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        showToast(err.message,"info");
+      });
+  };
 
   return (
     <div className="signp-page">
@@ -34,15 +57,13 @@ const Signup = () => {
         <Formik
           initialValues={{
             email: "",
-            fname: "",
-            lname: "",
+            firstName: "",
+            lastName: "",
             password: "",
             confirmPassword: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
+          onSubmit={(values) => registerNewUser(values)}
         >
           {({
             values,
@@ -67,28 +88,28 @@ const Signup = () => {
 
                 <div className="name-div">
                   <div className="first-name">
-                    <label htmlFor="fname">First Name</label>
+                    <label htmlFor="firstName">First Name</label>
                     <input
                       type="text"
-                      value={values.fname}
-                      onChange={handleChange("fname")}
-                      onBlur={handleBlur("fname")}
+                      value={values.firstName}
+                      onChange={handleChange("firstName")}
+                      onBlur={handleBlur("firstName")}
                     />
-                    {errors.fname && touched.fname ? (
-                      <p className="error-text">{errors.fname}</p>
+                    {errors.firstName && touched.firstName ? (
+                      <p className="error-text">{errors.firstName}</p>
                     ) : null}
                   </div>
 
                   <div className="last-name">
-                    <label htmlFor="lname">Last Name</label>
+                    <label htmlFor="lastName">Last Name</label>
                     <input
                       type="text"
-                      value={values.lname}
-                      onChange={handleChange("lname")}
-                      onBlur={handleBlur("lname")}
+                      value={values.lastName}
+                      onChange={handleChange("lastName")}
+                      onBlur={handleBlur("lastName")}
                     />
-                    {errors.lname && touched.lname ? (
-                      <p className="error-text">{errors.lname}</p>
+                    {errors.lastName && touched.lastName ? (
+                      <p className="error-text">{errors.lastName}</p>
                     ) : null}
                   </div>
                 </div>
