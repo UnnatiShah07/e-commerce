@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { MdArrowForwardIos } from "react-icons/md";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { PasswordInput } from "../../components";
+import { Loader, PasswordInput } from "../../components";
 import { handleSignup } from "../../apiServices";
 import { useAuthContext } from "../../contexts/authContext";
 import { useCustomToast } from "../../utils";
+import { useState } from "react";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -21,6 +22,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signup = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { dispatch } = useAuthContext();
   const { showToast } = useCustomToast();
@@ -28,16 +30,21 @@ const Signup = () => {
   const redirectToLogin = () => navigate("/login");
 
   const registerNewUser = (values) => {
+    setIsLoading(true);
     const { email, firstName, lastName, password } = values;
     handleSignup({ email, firstName, lastName, password })
       .then((response) => {
         console.log(response);
+        setIsLoading(false);
         const {
           encodedToken,
           createdUser: { firstName, lastName, email, _id },
         } = response;
         localStorage.setItem("token", encodedToken);
-        localStorage.setItem("user", JSON.stringify({ firstName, lastName, email, _id }));
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ firstName, lastName, email, _id })
+        );
         dispatch({ type: "SET_TOKEN", payload: encodedToken });
         dispatch({
           type: "SET_USER_DETAILS",
@@ -47,6 +54,7 @@ const Signup = () => {
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
         showToast(err.message);
       });
   };
@@ -58,11 +66,11 @@ const Signup = () => {
 
         <Formik
           initialValues={{
-            email: "",
-            firstName: "",
-            lastName: "",
-            password: "",
-            confirmPassword: "",
+            email: "hello@mailinator.com",
+            firstName: "Hello",
+            lastName: "User",
+            password: "12345678",
+            confirmPassword: "12345678",
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => registerNewUser(values)}
@@ -150,6 +158,7 @@ const Signup = () => {
           )}
         </Formik>
       </div>
+      {isLoading && <Loader />}
     </div>
   );
 };

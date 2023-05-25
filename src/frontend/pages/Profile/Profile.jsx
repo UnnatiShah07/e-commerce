@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts";
 import "./profile.css";
+import { useCustomToast } from "../../utils";
 
 const Profile = () => {
   const {
@@ -9,6 +10,7 @@ const Profile = () => {
     },
     dispatch,
   } = useAuthContext();
+  const { showToast } = useCustomToast();
 
   const handleLogout = () => {
     localStorage.clear();
@@ -17,6 +19,7 @@ const Profile = () => {
       type: "SET_USER_DETAILS",
       payload: {},
     });
+    showToast("You are logged out!", "info");
   };
 
   return (
