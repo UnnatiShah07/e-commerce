@@ -5,10 +5,25 @@ import { HiOutlineHeart } from "react-icons/hi";
 import { HiHeart } from "react-icons/hi";
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../../apiServices/wishlistServices";
+import { useProductContext } from "../../contexts";
 
-const ProductCard = ({ item, isProduct }) => {
-  const [isWishlist, setIsWishlist] = useState(false);
+const ProductCard = ({
+  item,
+  isLike,
+  isAddToCart,
+  isProduct,
+  isMoveToCart,
+}) => {
   const navigate = useNavigate();
+  const {
+    state: { wishlistItem, products },
+    dispatch,
+  } = useProductContext();
+  const isWishlist = wishlistItem.find((prod) => prod.id === item.id);
 
   const redirectToDetails = () =>
     navigate(isProduct ? `${item.id}` : `products/${item.id}`, {
@@ -28,12 +43,22 @@ const ProductCard = ({ item, isProduct }) => {
         </div>
         <p className="product-text">{item.name}</p>
         <div className="discount">-{item.discount}%</div>
-        {isProduct && (
-          <div className="wishlist" onClick={() => setIsWishlist(!isWishlist)}>
+        {isLike && (
+          <div>
             {isWishlist ? (
-              <HiHeart size={20} color="red" />
+              <div
+                className="wishlist"
+                onClick={() => removeFromWishlist(item.id, dispatch)}
+              >
+                <HiHeart size={20} color="red" />
+              </div>
             ) : (
-              <HiOutlineHeart size={20} />
+              <div className="wishlist" onClick={() => addToWishlist({ product: item }, dispatch)}>
+                <HiOutlineHeart
+                  size={20}
+                  
+                />
+              </div>
             )}
           </div>
         )}
@@ -55,8 +80,10 @@ const ProductCard = ({ item, isProduct }) => {
           <span className="rupees-icon"> ₹ </span>
           {item.price}
         </p>
-        {isProduct ? (
+        {isAddToCart ? (
           <button>Add to Cart</button>
+        ) : isMoveToCart ? (
+          <button>Move to Cart</button>
         ) : (
           <button onClick={redirectToDetails}>View Product</button>
         )}

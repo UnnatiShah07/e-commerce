@@ -15,7 +15,7 @@ const Products = () => {
       </div>
       <div className="product-list">
         {products.map((image) => (
-          <ProductCard key={image.id} item={image} isProduct={true} />
+          <ProductCard key={image.id} item={image} isLike isAddToCart isProduct />
         ))}
       </div>
     </div>

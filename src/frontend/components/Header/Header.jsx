@@ -6,13 +6,17 @@ import { HiOutlineHeart } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../contexts";
+import { useAuthContext, useProductContext } from "../../contexts";
 
 const Header = () => {
   const navigate = useNavigate();
   const {
     state: { token },
   } = useAuthContext();
+  const {
+    state: { wishlistItem },
+  } = useProductContext();
+  const wishlistCount = wishlistItem.length;
 
   const redirectTo = (path) => navigate(path);
 
@@ -38,7 +42,7 @@ const Header = () => {
         )}
         <div className="pos-relative" onClick={() => redirectTo("/wishlist")}>
           <HiOutlineHeart size={25} />
-          {/* <div className="popup">2</div> */}
+          <div className="popup">{wishlistCount}</div>
         </div>
         <div className="pos-relative" onClick={() => redirectTo("/cart")}>
           <BsCart2 size={25} />
