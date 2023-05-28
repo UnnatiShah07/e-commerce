@@ -2,7 +2,7 @@ import "./wishlist.css";
 import { useProductContext } from "../../contexts";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import ProductCard from "../../components/ProductCard/ProductCard";
+import { ProductCard } from "../../components";
 
 const Wishlist = () => {
   const {
@@ -16,7 +16,7 @@ const Wishlist = () => {
       {wishlistItem.length ? (
         <div className="list-container">
           {wishlistItem.map((item) => (
-            <ProductCard key={item.id} item={item} isLike isMoveToCart />
+            <ProductCard key={item._id} item={item} isLike isMoveToCart />
           ))}
         </div>
       ) : (

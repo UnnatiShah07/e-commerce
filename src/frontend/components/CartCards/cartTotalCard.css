@@ -1,0 +1,40 @@
+.cart-total-card{
+    width: 400px;
+    /* height: 330px; */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-primary);
+    border: 2px solid var(--dark-primary);
+    padding: 20px;
+}
+
+.cart-total-card .card-title{
+    font-weight: 600;
+    padding: 10px 0;
+}
+
+.cart-total-card .border-view{
+    border-bottom: 0.5px solid var(--dark-primary);
+}
+
+.cart-total-card .price-row{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.cart-total-card .rupees-icon{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cart-total-card .bold-text{
+    font-weight: 600;
+}
+
+.cart-total-card .padding-vertical{
+    padding: 10px 0;
+}
+
+.cart-total-card .order-btn{
+    margin-top: 10px;
+}

@@ -4,7 +4,7 @@ export const getWishlist = async (dispatch) => {
   try {
     const { data, status } = await axiosInstance.get("/api/user/wishlist");
     if (status === 200)
-      dispatch({ type: "SET_CART_ITEMS", payload: data.wishlist });
+      dispatch({ type: "SET_WISHLIST_ITEMS", payload: data.wishlist });
   } catch (error) {
     console.log(
       "error from get wishlist service",
@@ -14,14 +14,16 @@ export const getWishlist = async (dispatch) => {
   }
 };
 
-export const addToWishlist = async (params, dispatch) => {
+export const addToWishlist = async (params, dispatch, showToast) => {
   try {
     const { data, status } = await axiosInstance.post(
       "/api/user/wishlist",
       params
     );
-    if (status === 201)
+    if (status === 201) {
       dispatch({ type: "SET_WISHLIST_ITEMS", payload: data.wishlist });
+      showToast("Item added to wishlist");
+    }
   } catch (error) {
     console.log(
       "error from add wishlist service",
@@ -31,20 +33,20 @@ export const addToWishlist = async (params, dispatch) => {
   }
 };
 
-export const removeFromWishlist = async (productId, dispatch) => {
+export const removeFromWishlist = async (productId, dispatch, showToast) => {
   try {
     const { data, status } = await axiosInstance.delete(
       `/api/user/wishlist/${productId}`
     );
-    console.log(data, status, "===");
-    if (status === 200)
+    if (status === 200) {
       dispatch({ type: "SET_WISHLIST_ITEMS", payload: data.wishlist });
+      showToast("Item removed from wishlist");
+    }
   } catch (error) {
     console.log(
       "error from remove wishlist service",
       error.response.data.message,
       error.response
     );
-    throw new Error("Something went wrong!");
   }
 };

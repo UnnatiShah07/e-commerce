@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 const useCustomToast = () => {
   const [toastId, setToastId] = useState(null);
 
-  const showToast = (message, type = "error", options = {}) => {
+  const showToast = (message, type = "info", options = {}) => {
     if (toastId) {
       toast.dismiss(toastId);
     }

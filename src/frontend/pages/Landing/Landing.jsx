@@ -5,6 +5,7 @@ import { useAuthContext, useProductContext } from "../../contexts";
 import { ProductCard } from "../../components";
 import { useNavigate } from "react-router";
 import {
+  getCartItems,
   getCategoryList,
   getProductList,
   getWishlist,
@@ -26,6 +27,7 @@ const Landing = () => {
     getCategoryList(dispatch);
     if (token) {
       getWishlist(dispatch);
+      getCartItems(dispatch);
     }
   }, []);
 

@@ -1,14 +1,29 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./productDetail.css";
 import { Rating } from "react-simple-star-rating";
 import { FaStar } from "react-icons/fa";
-import { HiOutlineHeart } from "react-icons/hi";
-import { HiHeart } from "react-icons/hi";
+import { useEffect } from "react";
+import { addToCart, addToWishlist, getProductDetails } from "../../apiServices";
+import { useProductContext } from "../../contexts";
+import { useCustomToast } from "../../utils";
 
 const ProductDetail = () => {
   const {
     state: { item },
   } = useLocation();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const {
+    state: { productDetails, wishlistItem, cartItems },
+    dispatch,
+  } = useProductContext();
+  const { showToast } = useCustomToast();
+  const isInCart = cartItems.some((prod) => prod._id === item._id);
+  const isInWishlist = wishlistItem.some((prod) => prod._id === item._id);
+
+  useEffect(() => {
+    getProductDetails(id, dispatch);
+  }, []);
 
   return (
     <div className="product-detail">
@@ -39,8 +54,30 @@ const ProductDetail = () => {
             <p>{item.rating}</p>
           </div>
           <div className="btn-container">
-            <button>Add to Cart</button>
-            <button>Add to Favorite</button>
+            {isInCart ? (
+              <button onClick={() => navigate("/cart")}>Go to Cart</button>
+            ) : (
+              <button
+                onClick={() =>
+                  addToCart({ product: item }, dispatch, showToast)
+                }
+              >
+                Add to Cart
+              </button>
+            )}
+            {isInWishlist ? (
+              <button onClick={() => navigate("/wishlist")}>
+                Go to Wishlist
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  addToWishlist({ product: item }, dispatch, showToast)
+                }
+              >
+                Add to Wishlist
+              </button>
+            )}
           </div>
         </div>
       </div>

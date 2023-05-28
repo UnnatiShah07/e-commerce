@@ -34,7 +34,6 @@ const Signup = () => {
     const { email, firstName, lastName, password } = values;
     handleSignup({ email, firstName, lastName, password })
       .then((response) => {
-        console.log(response);
         setIsLoading(false);
         const {
           encodedToken,
@@ -55,7 +54,7 @@ const Signup = () => {
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
-        showToast(err.message);
+        showToast(err.message, "error");
       });
   };
 

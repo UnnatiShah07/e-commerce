@@ -1,15 +1,16 @@
 import "./productCard.css";
 import { Rating } from "react-simple-star-rating";
 import { FaStar } from "react-icons/fa";
-import { HiOutlineHeart } from "react-icons/hi";
-import { HiHeart } from "react-icons/hi";
-import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { HiOutlineHeart, HiHeart } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+import { useProductContext } from "../../contexts";
 import {
+  addToCart,
   addToWishlist,
   removeFromWishlist,
-} from "../../apiServices/wishlistServices";
-import { useProductContext } from "../../contexts";
+  changeCountInCart,
+} from "../../apiServices";
+import { useCustomToast } from "../../utils";
 
 const ProductCard = ({
   item,
@@ -20,18 +21,28 @@ const ProductCard = ({
 }) => {
   const navigate = useNavigate();
   const {
-    state: { wishlistItem, products },
+    state: { wishlistItem, cartItems },
     dispatch,
   } = useProductContext();
-  const isWishlist = wishlistItem.find((prod) => prod.id === item.id);
+  const { showToast } = useCustomToast();
+
+  const isInWishlist = wishlistItem.some((prod) => prod._id === item._id);
+  const isInCart = cartItems.some((prod) => prod._id === item._id);
 
   const redirectToDetails = () =>
-    navigate(isProduct ? `${item.id}` : `products/${item.id}`, {
+    navigate(isProduct ? `${item._id}` : `/products/${item._id}`, {
       state: { item },
     });
 
+  const moveToCart = () => {
+    removeFromWishlist(item._id, dispatch, showToast);
+    if (isInCart) changeCountInCart(item._id, "increment", dispatch);
+    else addToCart({ product: item }, dispatch, showToast);
+    showToast("Item moved to cart")
+  };
+
   return (
-    <div className="product-card" key={item.id}>
+    <div className="product-card" key={item._id}>
       <div>
         <div style={{ overflow: "hidden", height: "250px" }}>
           <img
@@ -45,19 +56,23 @@ const ProductCard = ({
         <div className="discount">-{item.discount}%</div>
         {isLike && (
           <div>
-            {isWishlist ? (
+            {isInWishlist ? (
               <div
                 className="wishlist"
-                onClick={() => removeFromWishlist(item.id, dispatch)}
+                onClick={() =>
+                  removeFromWishlist(item._id, dispatch, showToast)
+                }
               >
                 <HiHeart size={20} color="red" />
               </div>
             ) : (
-              <div className="wishlist" onClick={() => addToWishlist({ product: item }, dispatch)}>
-                <HiOutlineHeart
-                  size={20}
-                  
-                />
+              <div
+                className="wishlist"
+                onClick={() =>
+                  addToWishlist({ product: item }, dispatch, showToast)
+                }
+              >
+                <HiOutlineHeart size={20} />
               </div>
             )}
           </div>
@@ -81,9 +96,21 @@ const ProductCard = ({
           {item.price}
         </p>
         {isAddToCart ? (
-          <button>Add to Cart</button>
+          <>
+            {isInCart ? (
+              <button onClick={() => navigate("/cart")}>Go to Cart</button>
+            ) : (
+              <button
+                onClick={() =>
+                  addToCart({ product: item }, dispatch, showToast)
+                }
+              >
+                Add to Cart
+              </button>
+            )}
+          </>
         ) : isMoveToCart ? (
-          <button>Move to Cart</button>
+          <button onClick={moveToCart}>Move to Cart</button>
         ) : (
           <button onClick={redirectToDetails}>View Product</button>
         )}
