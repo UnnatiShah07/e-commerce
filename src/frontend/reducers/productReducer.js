@@ -3,6 +3,7 @@ const productInitState = {
   categories: [],
   cartItems: [],
   wishlistItem: [],
+  productDetails: {},
 };
 
 const productReducer = (state, action) => {
@@ -15,6 +16,8 @@ const productReducer = (state, action) => {
       return { ...state, cartItems: action.payload };
     case "SET_WISHLIST_ITEMS":
       return { ...state, wishlistItem: action.payload };
+    case "SET_PRODUCT_DETAILS":
+      return { ...state, productDetails: action.payload };
     default:
       return state;
   }

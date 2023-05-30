@@ -19,7 +19,7 @@ const Profile = () => {
       type: "SET_USER_DETAILS",
       payload: {},
     });
-    showToast("You are logged out!", "info");
+    showToast("You are logged out!");
   };
 
   return (

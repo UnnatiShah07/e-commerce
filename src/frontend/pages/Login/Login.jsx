@@ -42,11 +42,11 @@ const Login = () => {
           type: "SET_USER_DETAILS",
           payload: { firstName, lastName, email, _id },
         });
-        navigate("/profile");
+        navigate("/");
       })
       .catch((error) => {
         setLoading(false);
-        showToast(error.message);
+        showToast(error.message, "error");
       });
   };
 
@@ -56,7 +56,7 @@ const Login = () => {
         <p className="heading">Login</p>
 
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ email: "unnati@gmail.com", password: "12345678" }}
           validationSchema={validationSchema}
           onSubmit={(values) => loginUser(values)}
         >

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./landing.css";
 import { HomeBack, HomeBack2, HomeBack3 } from "../../assets";
-import axios from "axios";
-import { useProductContext } from "../../contexts";
+import { useAuthContext, useProductContext } from "../../contexts";
 import { ProductCard } from "../../components";
 import { useNavigate } from "react-router";
+import {
+  getCartItems,
+  getCategoryList,
+  getProductList,
+  getWishlist,
+} from "../../apiServices";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -12,34 +17,19 @@ const Landing = () => {
     state: { categories, products },
     dispatch,
   } = useProductContext();
+  const {
+    state: { token },
+  } = useAuthContext();
   const newArrivals = products.slice(8, 12).concat(products.slice(3, 4));
 
   useEffect(() => {
-    getProductList();
-    getCategoryList();
+    getProductList(dispatch);
+    getCategoryList(dispatch);
+    if (token) {
+      getWishlist(dispatch);
+      getCartItems(dispatch);
+    }
   }, []);
-
-  const getProductList = async () => {
-    try {
-      const { data, status } = await axios.get("/api/products");
-      if (status === 200) {
-        dispatch({ type: "SET_PRODUCTS", payload: data.products });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getCategoryList = async () => {
-    try {
-      const { data, status } = await axios.get("/api/categories");
-      if (status === 200) {
-        dispatch({ type: "SET_CATEGORIES", payload: data.categories });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const redirectToProduct = () => navigate("/products");
 
