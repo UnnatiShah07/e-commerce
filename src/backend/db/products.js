@@ -16,7 +16,7 @@ export const products = [
     prevPrice: 2999,
     price: 2499,
     rating: 5.0,
-    category: "Air Plant",
+    category: "airPlant",
     discount: 10,
   },
   {
@@ -29,7 +29,7 @@ export const products = [
     prevPrice: 499,
     price: 269,
     rating: 4.8,
-    category: "Air Plant",
+    category: "airPlant",
     discount: 48,
   },
   {
@@ -42,7 +42,7 @@ export const products = [
     prevPrice: 599,
     price: 399,
     rating: 4.7,
-    category: "Air Plant",
+    category: "airPlant",
     discount: 33,
   },
   {
@@ -55,7 +55,7 @@ export const products = [
     prevPrice: 899,
     price: 599,
     rating: 4.8,
-    category: "Flowering Plant",
+    category: "floweringPlant",
     discount: 20,
   },
   {
@@ -68,7 +68,7 @@ export const products = [
     prevPrice: 499,
     price: 399,
     rating: 4.9,
-    category: "Flowering Plant",
+    category: "floweringPlant",
     discount: 20,
   },
   {
@@ -81,7 +81,7 @@ export const products = [
     prevPrice: 1199,
     price: 999,
     rating: 4.6,
-    category: "Climbers",
+    category: "climbers",
     discount: 17,
   },
   {
@@ -94,7 +94,7 @@ export const products = [
     prevPrice: 299,
     price: 179,
     rating: 4.8,
-    category: "Climbers",
+    category: "climbers",
     discount: 40,
   },
   {
@@ -107,7 +107,7 @@ export const products = [
     prevPrice: 1249,
     price: 949,
     rating: 5,
-    category: "Fruit Plant",
+    category: "fruitPlant",
     discount: 24,
   },
   {
@@ -120,7 +120,7 @@ export const products = [
     prevPrice: 1299,
     price: 999,
     rating: 5,
-    category: "Fruit Plant",
+    category: "fruitPlant",
     discount: 23,
   },
   {
@@ -133,7 +133,7 @@ export const products = [
     prevPrice: 1299,
     price: 999,
     rating: 4.5,
-    category: "Ground Covers",
+    category: "groundCovers",
     discount: 17,
   },
   {
@@ -146,7 +146,7 @@ export const products = [
     prevPrice: 1199,
     price: 999,
     rating: 5,
-    category: "Hanging Basket Plants",
+    category: "hangingBasketPlant",
     discount: 17,
   },
   {
@@ -159,7 +159,7 @@ export const products = [
     prevPrice: 299,
     price: 179,
     rating: 5,
-    category: "Hanging Basket Plants",
+    category: "hangingBasketPlant",
     discount: 40,
   },
   {
@@ -171,8 +171,8 @@ export const products = [
       "https://cdn.shopify.com/s/files/1/0579/7924/0580/products/areca-palm-plant-xl-31798831349892.jpg?v=1675575726&width=375",
     prevPrice: 2999,
     price: 2499,
-    rating: 4,
-    category: "Indoor",
+    rating: 2,
+    category: "indoors",
     discount: 17,
   },
   {
@@ -185,7 +185,7 @@ export const products = [
     prevPrice: 499,
     price: 359,
     rating: 4.8,
-    category: "Indoor",
+    category: "indoors",
     discount: 28,
   },
   {
@@ -198,7 +198,7 @@ export const products = [
     prevPrice: 299,
     price: 179,
     rating: 4.8,
-    category: "Cacti & Succulents",
+    category: "cactiSucculents",
     discount: 40,
   },
   {
@@ -211,7 +211,7 @@ export const products = [
     prevPrice: 1699,
     price: 1499,
     rating: 5,
-    category: "Cacti & Succulents",
+    category: "cactiSucculents",
     discount: 12,
   },
 ];

@@ -4,6 +4,7 @@ const productInitState = {
   cartItems: [],
   wishlistItem: [],
   productDetails: {},
+  filteredProducts: [],
 };
 
 const productReducer = (state, action) => {
@@ -18,6 +19,8 @@ const productReducer = (state, action) => {
       return { ...state, wishlistItem: action.payload };
     case "SET_PRODUCT_DETAILS":
       return { ...state, productDetails: action.payload };
+    case "SET_FILTERED_PRODUCTS":
+      return { ...state, filteredProducts: action.payload };
     default:
       return state;
   }
