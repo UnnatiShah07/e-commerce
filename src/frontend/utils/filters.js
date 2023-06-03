@@ -14,27 +14,31 @@ const applySortByFilter = (products, sortBy) =>
     sortBy === "ascending" ? a.price - b.price : b.price - a.price
   );
 
+const applySearchFilter = (products, searchText) =>
+  products.filter((prod) =>
+    prod.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
 export const handleFilters = (
   products,
   dispatch,
   categories,
   price,
   rating,
-  sortBy
+  sortBy,
+  searchText
 ) => {
   let finalData = products;
-  if (Object.entries(categories).some((item) => item[1])) {
+  if (Object.entries(categories).some((item) => item[1]))
     finalData = applyCategoryFilter(finalData, categories);
-  }
-  if (price) {
-    finalData = applyPriceFilter(finalData, price);
-  }
-  if (rating) {
-    finalData = applyRatingFilter(finalData, rating);
-  }
-  if (sortBy) {
-    finalData = applySortByFilter(finalData, sortBy);
-  }
+
+  if (price) finalData = applyPriceFilter(finalData, price);
+
+  if (rating) finalData = applyRatingFilter(finalData, rating);
+
+  if (sortBy) finalData = applySortByFilter(finalData, sortBy);
+
+  if (searchText) finalData = applySearchFilter(finalData, searchText);
 
   dispatch({
     type: "SET_FILTERED_PRODUCTS",

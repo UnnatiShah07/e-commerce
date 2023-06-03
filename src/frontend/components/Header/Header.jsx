@@ -6,7 +6,11 @@ import { HiOutlineHeart } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext, useProductContext } from "../../contexts";
+import {
+  useAuthContext,
+  useFilterContext,
+  useProductContext,
+} from "../../contexts";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,10 +20,19 @@ const Header = () => {
   const {
     state: { wishlistItem, cartItems },
   } = useProductContext();
+  const {
+    state: { searchText },
+    dispatch,
+  } = useFilterContext();
   const wishlistCount = wishlistItem.length;
   const cartCount = cartItems.length;
 
   const redirectTo = (path) => navigate(path);
+
+  const updateSearchText = (text) => {
+    navigate("/products");
+    dispatch({ type: "SET_SEARCH_TEXT", payload: text });
+  };
 
   return (
     <div className="header-container">
@@ -29,7 +42,13 @@ const Header = () => {
       </div>
       <div className="search-container">
         <BiSearch size={20} />
-        <input type="text" placeholder="Search..." className="search-input" />
+        <input
+          type="text"
+          placeholder="Search..."
+          className="search-input"
+          value={searchText}
+          onChange={(e) => updateSearchText(e.target.value)}
+        />
       </div>
       <div className="btn-container">
         {token ? (

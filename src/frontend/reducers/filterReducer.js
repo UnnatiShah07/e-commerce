@@ -12,6 +12,7 @@ const filterInitState = {
   price: 2500,
   rating: "",
   sortBy: "",
+  searchText: "",
 };
 
 const filterReducer = (state, action) => {
@@ -27,6 +28,8 @@ const filterReducer = (state, action) => {
       return { ...state, rating: action.payload };
     case "SET_SORT_TYPE":
       return { ...state, sortBy: action.payload };
+    case "SET_SEARCH_TEXT":
+      return { ...state, searchText: action.payload };
     case "CLEAR_FILTERS":
       return filterInitState;
     default:

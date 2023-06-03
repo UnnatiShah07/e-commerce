@@ -6,7 +6,7 @@ import { handleFilters } from "../../utils";
 
 const Filters = () => {
   const {
-    state: { categories, price, rating, sortBy },
+    state: { categories, price, rating, sortBy, searchText },
     dispatch,
   } = useFilterContext();
   const {
@@ -15,8 +15,16 @@ const Filters = () => {
   } = useProductContext();
 
   useEffect(() => {
-    handleFilters(products, productDispatch, categories, price, rating, sortBy);
-  }, [price, categories, rating, sortBy]);
+    handleFilters(
+      products,
+      productDispatch,
+      categories,
+      price,
+      rating,
+      sortBy,
+      searchText
+    );
+  }, [price, categories, rating, sortBy, searchText]);
 
   const updateCategoriesValue = (field, value) =>
     dispatch({
