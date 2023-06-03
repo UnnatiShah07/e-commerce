@@ -4,8 +4,7 @@ import "./products.css";
 
 const Products = () => {
   const {
-    state: { products },
-    dispatch,
+    state: { filteredProducts },
   } = useProductContext();
 
   return (
@@ -14,9 +13,19 @@ const Products = () => {
         <Filters />
       </div>
       <div className="product-list">
-        {products.map((image) => (
-          <ProductCard key={image.id} item={image} isLike isAddToCart isProduct />
-        ))}
+        {filteredProducts.length ? (
+          filteredProducts.map((image) => (
+            <ProductCard
+              key={image.id}
+              item={image}
+              isLike
+              isAddToCart
+              isProduct
+            />
+          ))
+        ) : (
+          <p>No match found</p>
+        )}
       </div>
     </div>
   );

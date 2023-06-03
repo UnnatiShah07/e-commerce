@@ -5,6 +5,7 @@ export const getProductList = async (dispatch) => {
     const { data, status } = await axiosInstance.get("/api/products");
     if (status === 200) {
       dispatch({ type: "SET_PRODUCTS", payload: data.products });
+      dispatch({ type: "SET_FILTERED_PRODUCTS", payload: data.products });
     }
   } catch (error) {
     console.log(
