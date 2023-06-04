@@ -22,7 +22,7 @@ const Cart = () => {
             ))}
           </div>
           <div className="list-total-div">
-            <CartTotalCard />
+            <CartTotalCard isCart />
           </div>
         </div>
       ) : (

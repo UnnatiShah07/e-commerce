@@ -6,6 +6,7 @@ import Signup from "./Signup/Signup";
 import Profile from "./Profile/Profile";
 import Cart from "./Cart/Cart";
 import Wishlist from "./Wishlist/Wishlist";
+import Checkout from "./checkout/Checkout";
 
 export {
   Landing,
@@ -16,4 +17,5 @@ export {
   Profile,
   Cart,
   Wishlist,
+  Checkout
 };
