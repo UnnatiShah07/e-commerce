@@ -12,7 +12,7 @@ const useCustomToast = () => {
 
     const newToastId = toast[type](message, {
       ...options,
-      position: toast.POSITION.TOP_RIGHT,
+      position: toast.POSITION.BOTTOM_RIGHT,
       autoClose: 1000,
     });
     setToastId(newToastId);

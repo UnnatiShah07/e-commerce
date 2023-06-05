@@ -1,9 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useAddressContext, useAuthContext } from "../../contexts";
+import {
+  useAddressContext,
+  useAuthContext,
+  useProductContext,
+} from "../../contexts";
 import "./profile.css";
 import { useCustomToast } from "../../utils";
 import { useState } from "react";
 import { AddressCard, FormModal } from "../../components";
+import { productInitState } from "../../reducers";
 
 const Profile = () => {
   const {
@@ -15,6 +20,7 @@ const Profile = () => {
   const {
     state: { address },
   } = useAddressContext();
+  const { dispatch: productDispatch } = useProductContext();
   const { showToast } = useCustomToast();
   const [toggle, setToggle] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +31,10 @@ const Profile = () => {
     dispatch({
       type: "SET_USER_DETAILS",
       payload: {},
+    });
+    productDispatch({
+      type: "CLEAR_PRODUCT_STATE",
+      payload: { cartItems: [], wishlistItem: [] },
     });
     showToast("You are logged out!");
   };

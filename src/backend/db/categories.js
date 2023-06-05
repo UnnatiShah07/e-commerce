@@ -29,29 +29,34 @@ export const categories = [
     image:
       "https://cdn.shopify.com/s/files/1/0579/7924/0580/products/SpiroCeramicPot-White_7162f78e-ef39-4241-bbf2-0c17e2d30675.jpg?v=1680305362&width=375",
     category: "Air Plant",
+    type: "airPlant",
   },
   {
     id: uuid(),
     image:
       "https://cdn.shopify.com/s/files/1/0579/7924/0580/products/GrailCeramicPot-Peach_af4863b7-d932-4ce8-a94b-f0ec6b5f0f4b.jpg?v=1681553926&width=375",
     category: "Flowering Plant",
+    type: "floweringPlant",
   },
   {
     id: uuid(),
     image:
       "https://cdn.shopify.com/s/files/1/0579/7924/0580/products/betel-leaf-magai-paan-with-hanging-pot-31808442531972.jpg?v=1675575911&width=375",
     category: "Climbers",
+    type: "climbers",
   },
   {
     id: uuid(),
     image:
       "https://cdn.shopify.com/s/files/1/0579/7924/0580/files/Aimage_3.jpg?v=1682523121",
     category: "Indoor",
+    type: "indoors",
   },
   {
     id: uuid(),
     image:
       "https://cdn.shopify.com/s/files/1/0579/7924/0580/products/LagosPlanter-Grey_f26c8dee-c8ce-4e1a-bec7-86006f560c98.jpg?v=1680418283&width=375",
     category: "Cacti & Succulents",
+    type: "cactiSucculents",
   },
 ];

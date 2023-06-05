@@ -65,11 +65,11 @@ const Signup = () => {
 
         <Formik
           initialValues={{
-            email: "hello@mailinator.com",
-            firstName: "Hello",
-            lastName: "User",
-            password: "12345678",
-            confirmPassword: "12345678",
+            email: "",
+            firstName: "",
+            lastName: "",
+            password: "",
+            confirmPassword: "",
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => registerNewUser(values)}
@@ -87,6 +87,7 @@ const Signup = () => {
                 <label htmlFor="username">Email Address</label>
                 <input
                   type="email"
+                  placeholder="Email"
                   value={values.email}
                   onChange={handleChange("email")}
                   onBlur={handleBlur("email")}
@@ -100,6 +101,7 @@ const Signup = () => {
                     <label htmlFor="firstName">First Name</label>
                     <input
                       type="text"
+                      placeholder="First name"
                       value={values.firstName}
                       onChange={handleChange("firstName")}
                       onBlur={handleBlur("firstName")}
@@ -113,6 +115,7 @@ const Signup = () => {
                     <label htmlFor="lastName">Last Name</label>
                     <input
                       type="text"
+                      placeholder="Last name"
                       value={values.lastName}
                       onChange={handleChange("lastName")}
                       onBlur={handleBlur("lastName")}

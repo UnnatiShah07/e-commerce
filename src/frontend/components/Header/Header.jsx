@@ -5,6 +5,7 @@ import { BsCart2 } from "react-icons/bs";
 import { HiOutlineHeart } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
+import { TbPlant2 } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import {
   useAuthContext,
@@ -62,11 +63,14 @@ const Header = () => {
         )}
         <div className="pos-relative" onClick={() => redirectTo("/wishlist")}>
           <HiOutlineHeart size={25} />
-          <div className="popup">{wishlistCount}</div>
+          {wishlistCount > 0 && <div className="popup">{wishlistCount}</div>}
         </div>
         <div className="pos-relative" onClick={() => redirectTo("/cart")}>
           <BsCart2 size={25} />
-          <div className="popup">{cartCount}</div>
+          {cartCount > 0 && <div className="popup">{cartCount}</div>}
+        </div>
+        <div className="pos-relative" onClick={() => redirectTo("/products")}>
+          <TbPlant2 size={25} />
         </div>
       </div>
     </div>

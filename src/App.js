@@ -10,7 +10,7 @@ function App() {
       <Header />
       <AppRoutes />
       {/* <Footer /> */}
-      <ToastContainer position="top-right" theme="dark" />
+      <ToastContainer position="bottom-right" theme="dark" />
     </div>
   );
 }

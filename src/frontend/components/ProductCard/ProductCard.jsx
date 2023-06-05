@@ -3,7 +3,7 @@ import { Rating } from "react-simple-star-rating";
 import { FaStar } from "react-icons/fa";
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import { useProductContext } from "../../contexts";
+import { useAuthContext, useProductContext } from "../../contexts";
 import {
   addToCart,
   addToWishlist,
@@ -24,6 +24,9 @@ const ProductCard = ({
     state: { wishlistItem, cartItems },
     dispatch,
   } = useProductContext();
+  const {
+    state: { token },
+  } = useAuthContext();
   const { showToast } = useCustomToast();
 
   const isInWishlist = wishlistItem.some((prod) => prod._id === item._id);
@@ -35,11 +38,13 @@ const ProductCard = ({
     });
 
   const moveToCart = () => {
-    removeFromWishlist(item._id, dispatch, showToast);
-    if (isInCart) changeCountInCart(item._id, "increment", dispatch);
-    else addToCart({ product: item }, dispatch, showToast);
-    showToast("Item moved to cart")
+    if (isInCart) {
+      changeCountInCart(item._id, "increment", dispatch);
+      showToast("Item added to cart");
+    } else addToCart({ product: item }, dispatch, showToast);
   };
+
+  const redirectToLogin = () => navigate("/login");
 
   return (
     <div className="product-card" key={item._id}>
@@ -60,7 +65,9 @@ const ProductCard = ({
               <div
                 className="wishlist"
                 onClick={() =>
-                  removeFromWishlist(item._id, dispatch, showToast)
+                  token
+                    ? removeFromWishlist(item._id, dispatch, showToast)
+                    : redirectToLogin()
                 }
               >
                 <HiHeart size={20} color="red" />
@@ -69,7 +76,9 @@ const ProductCard = ({
               <div
                 className="wishlist"
                 onClick={() =>
-                  addToWishlist({ product: item }, dispatch, showToast)
+                  token
+                    ? addToWishlist({ product: item }, dispatch, showToast)
+                    : redirectToLogin()
                 }
               >
                 <HiOutlineHeart size={20} />
@@ -102,7 +111,9 @@ const ProductCard = ({
             ) : (
               <button
                 onClick={() =>
-                  addToCart({ product: item }, dispatch, showToast)
+                  token
+                    ? addToCart({ product: item }, dispatch, showToast)
+                    : redirectToLogin()
                 }
               >
                 Add to Cart
@@ -110,7 +121,9 @@ const ProductCard = ({
             )}
           </>
         ) : isMoveToCart ? (
-          <button onClick={moveToCart}>Move to Cart</button>
+          <button onClick={() => (token ? moveToCart() : redirectToLogin())}>
+            Add to Cart
+          </button>
         ) : (
           <button onClick={redirectToDetails}>View Product</button>
         )}

@@ -5,6 +5,7 @@ const productInitState = {
   wishlistItem: [],
   productDetails: {},
   filteredProducts: [],
+  loading: false,
 };
 
 const productReducer = (state, action) => {
@@ -21,6 +22,10 @@ const productReducer = (state, action) => {
       return { ...state, productDetails: action.payload };
     case "SET_FILTERED_PRODUCTS":
       return { ...state, filteredProducts: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    case "CLEAR_PRODUCT_STATE":
+      return { ...state, ...action.payload };
     default:
       return state;
   }

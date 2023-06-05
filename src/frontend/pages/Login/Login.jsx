@@ -56,7 +56,7 @@ const Login = () => {
         <p className="heading">Login</p>
 
         <Formik
-          initialValues={{ email: "unnati@gmail.com", password: "12345678" }}
+          initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}
           onSubmit={(values) => loginUser(values)}
         >
@@ -73,6 +73,7 @@ const Login = () => {
                 <label htmlFor="username">Email Address</label>
                 <input
                   type="email"
+                  placeholder="Email"
                   value={values.email}
                   onChange={handleChange("email")}
                   onBlur={handleBlur("email")}
@@ -90,9 +91,19 @@ const Login = () => {
                   <p className="error-text">{errors.password}</p>
                 ) : null}
               </div>
-              <p className="forgot">Forgot your password?</p>
+              {/* <p className="forgot">Forgot your password?</p> */}
               <div className="btn-container">
                 <button onClick={handleSubmit}>Login</button>
+                <button
+                  onClick={() =>
+                    loginUser({
+                      email: "unnati@gmail.com",
+                      password: "12345678",
+                    })
+                  }
+                >
+                  Login as a Guest
+                </button>
                 <p onClick={redirectToSignup}>
                   Create new account{" "}
                   <MdArrowForwardIos className="arrow-icon" />
