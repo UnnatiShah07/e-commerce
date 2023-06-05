@@ -1,51 +1,35 @@
-.App {
-  text-align: center;
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+:root {
+  --primary-color: #a0f7cd;
+  --light-primary: #f6fffb;
+  --dark-primary: #6dcf9f;
+  --secondary-color: #FFF8D6;
+  --dark-gray: #6B7280 ;
+  --off-white: #F3F4F6;
+  --light-gray: #fbfaf7;
+  --poppins-font: 'Poppins', sans-serif;
+  --shadows-into-light: 'Shadows Into Light', cursive;
+  --font-color: #363636;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--poppins-font);
+  color: var(--font-color);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p {
+  margin: 0;
 }
 
-.App-header {
-  background-color: #22201c;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-.brand-title {
-  font-size: 3rem;
-  color: #d9d9d9;
-}
-
-.brand-title span {
-  color: #ffde59;
-}
-
-.brand-description {
-  font-size: 1.4rem;
-}
-
-.links {
-  display: flex;
-}
-
-.links a {
-  color: #d9d9d9;
-  font-size: 1.2rem;
-  margin: 1rem;
+button {
+  border: 0;
+  padding: 10px 20px;
+  font-family: var(--poppins-font);
+  font-weight: 600;
+  background-color: var(--primary-color);
 }

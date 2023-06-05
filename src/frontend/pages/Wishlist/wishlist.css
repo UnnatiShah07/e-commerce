@@ -1,0 +1,37 @@
+.wishlist-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wishlist-page .heading{
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 25px;
+}
+
+.wishlist-page .empty{
+    font-size: 18px;
+    font-weight: 100;
+    margin-top: 25px;
+}
+
+.wishlist-page button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    gap: 10px;
+}
+
+.wishlist-page .list-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.wishlist-page .btn-margin{
+    margin: 30px;
+}
