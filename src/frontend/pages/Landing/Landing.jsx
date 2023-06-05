@@ -1,46 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./landing.css";
-import { HomeBack, HomeBack2, HomeBack3 } from "../../assets";
-import { useAuthContext, useProductContext } from "../../contexts";
-import { ProductCard } from "../../components";
+import { useFilterContext, useProductContext } from "../../contexts";
+import { Loader, ProductCard } from "../../components";
 import { useNavigate } from "react-router";
-import {
-  getCartItems,
-  getCategoryList,
-  getProductList,
-  getWishlist,
-} from "../../apiServices";
 
 const Landing = () => {
   const navigate = useNavigate();
   const {
-    state: { categories, products },
-    dispatch,
+    state: { categories, products, loading },
   } = useProductContext();
-  const {
-    state: { token },
-  } = useAuthContext();
+  const { dispatch } = useFilterContext();
   const newArrivals = products.slice(8, 12).concat(products.slice(3, 4));
 
-  useEffect(() => {
-    getProductList(dispatch);
-    getCategoryList(dispatch);
-    if (token) {
-      getWishlist(dispatch);
-      getCartItems(dispatch);
-    }
-  }, []);
-
   const redirectToProduct = () => navigate("/products");
+
+  const handleCategoryFilter = (field, value) => {
+    dispatch({
+      type: "SET_CATEGORIES_TYPE",
+      payload: { [field]: value },
+    });
+    navigate("/products");
+  };
 
   return (
     <div className="landing">
       <div className="banner">
-        {/* <div className="image-container">
-          <img src={HomeBack} alt="HomeBack" className="back-image-one" />
-          <img src={HomeBack2} alt="HomeBack" className="back-image-two" />
-          <img src={HomeBack3} alt="HomeBack" className="back-image-three" />
-        </div> */}
+        <div className="image-container">
+          <div className="image-div">
+            <img
+              src={
+                "https://media.istockphoto.com/id/1303363400/vector/beautiful-green-houseplants-and-flowers-composition.jpg?s=170667a&w=0&k=20&c=zz9YZMb30YEwa0Fwoe8qVlFFGPO0gWRISs_ZiY7jecw="
+              }
+              alt="HomeBack"
+              className="image"
+            />
+          </div>
+        </div>
         <div className="intro-container">
           <div className="welcome-card">
             <div>
@@ -58,7 +53,11 @@ const Landing = () => {
       <p className="sub-title">Categories</p>
       <div className="category-conatiner">
         {categories.map((image) => (
-          <div className="cat-card" key={image.id}>
+          <div
+            className="cat-card"
+            key={image.id}
+            onClick={() => handleCategoryFilter(image.type, true)}
+          >
             <img className="cat-image" src={image.image} alt="plantPhoto" />
             <p className="cat-text">{image.category}</p>
           </div>
@@ -73,6 +72,8 @@ const Landing = () => {
           <ProductCard item={image} key={image.id} />
         ))}
       </div>
+
+      {loading && <Loader />}
 
       <footer>
         <p className="footer-text">Develop by Unnati</p>

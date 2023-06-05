@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
 import {
   Cart,
+  Checkout,
   Landing,
   Login,
   ProductDetail,
@@ -42,6 +43,14 @@ const AppRoutes = () => {
         element={
           <PrivateRoute>
             <Wishlist />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/checkout"
+        element={
+          <PrivateRoute>
+            <Checkout />
           </PrivateRoute>
         }
       />

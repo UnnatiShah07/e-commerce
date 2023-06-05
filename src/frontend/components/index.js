@@ -7,6 +7,8 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import CartProductCard from "./CartCards/CartProductCard";
 import CartTotalCard from "./CartCards/CartTotalCard";
 import Footer from "./Footer/Footer";
+import AddressCard from "./AddressCard/AddressCard";
+import FormModal from "./FormModal/FormModal";
 
 export {
   Header,
@@ -17,5 +19,7 @@ export {
   PrivateRoute,
   CartProductCard,
   CartTotalCard,
-  Footer
+  Footer,
+  AddressCard,
+  FormModal,
 };

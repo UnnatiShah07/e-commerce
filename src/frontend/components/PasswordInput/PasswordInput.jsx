@@ -13,6 +13,7 @@ const PasswordInput = (props) => {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        placeholder="Password"
       />
       <div className="icon" onClick={() => setShowPwd(!showPwd)}>
         {showPwd ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}

@@ -4,22 +4,25 @@ import { Rating } from "react-simple-star-rating";
 import { FaStar } from "react-icons/fa";
 import { useEffect } from "react";
 import { addToCart, addToWishlist, getProductDetails } from "../../apiServices";
-import { useProductContext } from "../../contexts";
+import { useAuthContext, useProductContext } from "../../contexts";
 import { useCustomToast } from "../../utils";
+import { Loader } from "../../components";
 
 const ProductDetail = () => {
-  const {
-    state: { item },
-  } = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
   const {
-    state: { productDetails, wishlistItem, cartItems },
+    state: { productDetails, wishlistItem, cartItems, loading },
     dispatch,
   } = useProductContext();
+  const {
+    state: { token },
+  } = useAuthContext();
   const { showToast } = useCustomToast();
-  const isInCart = cartItems.some((prod) => prod._id === item._id);
-  const isInWishlist = wishlistItem.some((prod) => prod._id === item._id);
+  const isInCart = cartItems.some((prod) => prod._id === productDetails?._id);
+  const isInWishlist = wishlistItem.some(
+    (prod) => prod._id === productDetails?._id
+  );
 
   useEffect(() => {
     getProductDetails(id, dispatch);
@@ -29,29 +32,29 @@ const ProductDetail = () => {
     <div className="product-detail">
       <div className="card">
         <div className="image-container">
-          <img src={item.image} alt="" />
+          <img src={productDetails.image} alt="" />
         </div>
         <div className="details">
-          <h2>{item.name}</h2>
-          <p className="desc">{item.description}</p>
+          <h2>{productDetails.name}</h2>
+          <p className="desc">{productDetails.description}</p>
           <p className="price">
             <span className="old-price">
               <span className="rupees-icon">₹ </span>
-              {item.prevPrice}
+              {productDetails.prevPrice}
             </span>
             <span className="rupees-icon"> ₹ </span>
-            {item.price}
-            <span className="off-price">- {item.discount}%</span>
+            {productDetails.price}
+            <span className="off-price">- {productDetails.discount}%</span>
           </p>
           <div className="rating-container">
             <Rating
-              initialValue={item.rating}
+              initialValue={productDetails.rating}
               allowFraction
               fillIcon={<FaStar size={20} style={{ marginRight: "2px" }} />}
               emptyIcon={<FaStar size={20} style={{ marginRight: "2px" }} />}
               allowHover={false}
             />
-            <p>{item.rating}</p>
+            <p>{productDetails.rating}</p>
           </div>
           <div className="btn-container">
             {isInCart ? (
@@ -59,7 +62,13 @@ const ProductDetail = () => {
             ) : (
               <button
                 onClick={() =>
-                  addToCart({ product: item }, dispatch, showToast)
+                  token
+                    ? addToCart(
+                        { product: productDetails },
+                        dispatch,
+                        showToast
+                      )
+                    : navigate("/login")
                 }
               >
                 Add to Cart
@@ -72,7 +81,13 @@ const ProductDetail = () => {
             ) : (
               <button
                 onClick={() =>
-                  addToWishlist({ product: item }, dispatch, showToast)
+                  token
+                    ? addToWishlist(
+                        { product: productDetails },
+                        dispatch,
+                        showToast
+                      )
+                    : navigate("/login")
                 }
               >
                 Add to Wishlist
@@ -81,6 +96,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      {loading && <Loader />}
     </div>
   );
 };

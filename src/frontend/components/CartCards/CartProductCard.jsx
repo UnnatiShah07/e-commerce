@@ -8,13 +8,15 @@ import { useCustomToast } from "../../utils";
 import "./cartProductCard.css";
 
 const CartProductCard = ({ item }) => {
-  const { dispatch } = useProductContext();
+  const {
+    state: { wishlistItem },
+    dispatch,
+  } = useProductContext();
   const { showToast } = useCustomToast();
+  const isInWishlist = wishlistItem.find((prod) => prod._id === item._id);
 
   const moveToWhishlist = () => {
-    removeFromCart(item._id, dispatch, showToast);
-    addToWishlist({ product: item }, dispatch, showToast);
-    showToast("Item moved to wishlist")
+    if (!isInWishlist) addToWishlist({ product: item }, dispatch, showToast);
   };
 
   return (
@@ -58,7 +60,7 @@ const CartProductCard = ({ item }) => {
           Remove From Cart
         </button>
         <button className="action-btn" onClick={moveToWhishlist}>
-          Move To Wishlist
+          {isInWishlist ? "Added to wishlist" : "Add To Wishlist"}
         </button>
       </div>
     </div>
