@@ -1,5 +1,4 @@
 .landing{
-    /* background-color: var(--light-primary); */
     display: flex;
     flex-direction: column;
 }
@@ -9,61 +8,27 @@
 }
 
 .image-container {
-    position: relative;
     display: flex;
-    width: 60%;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
     height: 550px;
 }
 
-/* .image-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 30%; 
-    background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)); 
-    pointer-events: none;
-} */
+.image-container .image-div{
+    width: 550px;
+    height: 550px;
+}
 
 .image{
     width: 100%;
     height: 100%;
     box-shadow: 0 0 8px 8px #fff inset;
-}
-  
-.back-image-one{
-    width: 280px;
-    height: 280px;
-    border-radius: 10rem;
-    object-fit: cover;
-    position: absolute;
-    top: 30px;
-    left: 90px;
-}
-
-.back-image-two{
-    width: 350px;
-    height: 350px;
-    border-radius: 15rem;
-    object-fit: cover;
-    position: absolute;
-    top: 45px;
-    right: 70px;
-}
-
-.back-image-three{
-    width: 200px;
-    height: 200px;
-    border-radius: 15rem;
-    object-fit: cover;
-    position: absolute;
-    left: 230px;
-    bottom: 40px;
+    object-fit: contain;
 }
 
 .intro-container{
-    width: 40%;
+    width: 50%;
     height: 550px;
     display: flex;
     align-items: center;
@@ -75,13 +40,32 @@
     background-color: var(--light-primary);
     border-radius: 1rem;
     box-shadow: 2px 2px 15px 2px var(--primary-color);
-    margin-left: 2.5rem;
+    margin-left: 4rem;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2rem;
+}
+
+.welcome-card-one{
+    height: 28rem;
+    width: 25rem;
+    background-color: var(--light-primary);
+    border-radius: 1rem;
+    box-shadow: 2px 2px 15px 2px var(--primary-color);
+    margin-left: 2.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem; 
+    position: absolute;
+    top: 50px;
+    left: 0px;
+
 }
 
 .intro-title{

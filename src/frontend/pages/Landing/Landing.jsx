@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import "./landing.css";
-import { HomeBack, HomeBack2, HomeBack3 } from "../../assets";
 import { useFilterContext, useProductContext } from "../../contexts";
 import { Loader, ProductCard } from "../../components";
 import { useNavigate } from "react-router";
@@ -26,11 +25,17 @@ const Landing = () => {
   return (
     <div className="landing">
       <div className="banner">
-        {/* <div className="image-container">
-          <img src={HomeBack} alt="HomeBack" className="back-image-one" />
-          <img src={HomeBack2} alt="HomeBack" className="back-image-two" />
-          <img src={HomeBack3} alt="HomeBack" className="back-image-three" />
-        </div> */}
+        <div className="image-container">
+          <div className="image-div">
+            <img
+              src={
+                "https://media.istockphoto.com/id/1303363400/vector/beautiful-green-houseplants-and-flowers-composition.jpg?s=170667a&w=0&k=20&c=zz9YZMb30YEwa0Fwoe8qVlFFGPO0gWRISs_ZiY7jecw="
+              }
+              alt="HomeBack"
+              className="image"
+            />
+          </div>
+        </div>
         <div className="intro-container">
           <div className="welcome-card">
             <div>
