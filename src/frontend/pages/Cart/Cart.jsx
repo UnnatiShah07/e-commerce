@@ -2,7 +2,7 @@ import "./cart.css";
 import { useProductContext } from "../../contexts";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { CartProductCard, CartTotalCard, ProductCard } from "../../components";
+import { CartProductCard, CartTotalCard } from "../../components";
 
 const Cart = () => {
   const {

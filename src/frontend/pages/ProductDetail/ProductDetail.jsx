@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./productDetail.css";
 import { Rating } from "react-simple-star-rating";
 import { FaStar } from "react-icons/fa";
@@ -26,7 +26,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     getProductDetails(id, dispatch);
-  }, []);
+  }, [id, dispatch]);
 
   return (
     <div className="product-detail">

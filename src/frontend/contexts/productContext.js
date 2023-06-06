@@ -23,7 +23,7 @@ const ProductProvider = ({ children }) => {
       getWishlist(dispatch);
       getCartItems(dispatch);
     }
-  }, []);
+  }, [token]);
 
   return (
     <ProductContext.Provider value={{ state, dispatch }}>

@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   useAddressContext,
   useAuthContext,
@@ -8,7 +7,6 @@ import "./profile.css";
 import { useCustomToast } from "../../utils";
 import { useState } from "react";
 import { AddressCard, FormModal } from "../../components";
-import { productInitState } from "../../reducers";
 
 const Profile = () => {
   const {

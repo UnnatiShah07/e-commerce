@@ -24,7 +24,15 @@ const Filters = () => {
       sortBy,
       searchText
     );
-  }, [price, categories, rating, sortBy, searchText]);
+  }, [
+    price,
+    categories,
+    rating,
+    sortBy,
+    searchText,
+    productDispatch,
+    products,
+  ]);
 
   const updateCategoriesValue = (field, value) =>
     dispatch({

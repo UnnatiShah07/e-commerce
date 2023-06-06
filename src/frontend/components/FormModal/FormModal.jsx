@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { useAddressContext } from "../../contexts";
 import "./formModal.css";
 import { RxCross2 } from "react-icons/rx";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
