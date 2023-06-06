@@ -11,6 +11,11 @@
     width: 50%;
 }
 
+.image-container img{
+    width: 100%;
+    height: 100%;
+}
+
 .cart-product-card .details{
     width: 50%;
     padding: 30px 20px;

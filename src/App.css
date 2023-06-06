@@ -33,3 +33,10 @@ button {
   font-weight: 600;
   background-color: var(--primary-color);
 }
+
+.app{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+}

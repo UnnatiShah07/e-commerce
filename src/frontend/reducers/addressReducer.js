@@ -2,22 +2,22 @@ export const addressInitState = {
   address: [
     {
       id: 1,
-      name: "Unnati Shah",
-      street: "10, Thakordhwar soc, Palanpur jakatanaka",
-      city: "Surat",
-      pincode: "395009",
-      state: "Gujarat",
+      name: "Amit Shah",
+      street: "105 B, Twin Arcade, Military Road, Andheri(e)",
+      city: "Bangalore",
+      pincode: "400059",
+      state: "Karnataka",
       country: "India",
       mobile: "1234567890",
     },
   ],
   deliveryAddress: {
     id: 1,
-    name: "Unnati Shah",
-    street: "10, Thakordhwar soc, Palanpur jakatanaka",
-    city: "Surat",
-    pincode: "395009",
-    state: "Gujarat",
+    name: "Amit Shah",
+    street: "105 B, Twin Arcade, Military Road, Andheri(e)",
+    city: "Bangalore",
+    pincode: "400059",
+    state: "Karnataka",
     country: "India",
     mobile: "1234567890",
   },
@@ -30,6 +30,7 @@ export const addressInitState = {
     country: "India",
     mobile: "02223461193",
   },
+  orderDetails: [],
 };
 
 export const addressReducer = (state, action) => {
@@ -40,6 +41,11 @@ export const addressReducer = (state, action) => {
       return { ...state, deliveryAddress: action.payload };
     case "SET_INPUT_ADDRESS":
       return { ...state, inputAddress: action.payload };
+    case "SET_ORDER_DETAILS":
+      return {
+        ...state,
+        orderDetails: [...state.orderDetails, action.payload],
+      };
     default:
       return state;
   }

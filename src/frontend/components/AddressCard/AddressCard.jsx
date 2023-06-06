@@ -6,13 +6,15 @@ const AddressCard = ({ item, isEdit }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const {
-    state: { address },
+    state: { address, deliveryAddress },
     dispatch,
   } = useAddressContext();
 
   const handleEdit = () => setIsOpen(true);
 
   const handleDelete = () => {
+    if (deliveryAddress.id === item.id)
+      dispatch({ type: "SET_DELIVERY_ADDRESS", payload: {} });
     const newAddress = address.filter((addr) => addr.id !== item.id);
     dispatch({
       type: "SET_ADDRESS",
@@ -20,7 +22,7 @@ const AddressCard = ({ item, isEdit }) => {
     });
   };
 
-  return (
+  return Object.keys(item).length ? (
     <div className="address-card">
       <p className="name">{item.name}</p>
       <p>{`${item.street},`}</p>
@@ -43,7 +45,7 @@ const AddressCard = ({ item, isEdit }) => {
         isEdit
       />
     </div>
-  );
+  ) : null;
 };
 
 export default AddressCard;

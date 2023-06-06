@@ -74,10 +74,6 @@ const Landing = () => {
       </div>
 
       {loading && <Loader />}
-
-      <footer>
-        <p className="footer-text">Develop by Unnati</p>
-      </footer>
     </div>
   );
 };
