@@ -46,6 +46,7 @@ const Login = () => {
       })
       .catch((error) => {
         setLoading(false);
+        console.log(error, "erorr from login");
         showToast(error.message, "error");
       });
   };
