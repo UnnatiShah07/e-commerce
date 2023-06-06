@@ -40,7 +40,7 @@ const Profile = () => {
   return (
     <div className="profile-box">
       <div className="profile-page">
-        <div clastName="profile-section">
+        <div className="profile-section">
           <div className="nav">
             <p
               className={toggle && "active-nav"}
@@ -75,7 +75,7 @@ const Profile = () => {
                   Add Address
                 </button>
                 {address.map((item) => (
-                  <AddressCard item={item} isEdit />
+                  <AddressCard key={item.id} item={item} isEdit />
                 ))}
                 <FormModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
               </div>

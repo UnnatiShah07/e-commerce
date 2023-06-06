@@ -35,7 +35,7 @@ const CartTotalCard = ({ isCart }) => {
             <p>Quantity</p>
           </div>
           {cartItems.map((item) => (
-            <div className="price-row">
+            <div className="price-row" key={item.id}>
               <p>{item.name}</p>
               <p>
                 {item.qty} X <span className="rupees-icon">₹ </span>
