@@ -1,20 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import { useAddressContext, useProductContext } from "../../contexts";
+import {
+  useAddressContext,
+  useAuthContext,
+  useProductContext,
+} from "../../contexts";
 import "./cartTotalCard.css";
 import AddressCard from "../AddressCard/AddressCard";
+import Plant from "../../assets/svg/seedling-icon.svg";
+import { useCustomToast } from "../../utils";
+import { removeFromCart } from "../../apiServices";
 
 const CartTotalCard = ({ isCart }) => {
   const {
     state: { cartItems },
+    dispatch: productDispatch,
   } = useProductContext();
   const {
     state: { deliveryAddress },
+    dispatch,
   } = useAddressContext();
+  const {
+    state: { userDetails },
+  } = useAuthContext();
   const navigate = useNavigate();
+  const { showToast } = useCustomToast();
 
   const cartItemsCount = cartItems.length;
   const totalPrice = cartItems.reduce(
-    (acc, prod) => acc + prod.price * prod.qty,
+    (acc, prod) => acc + prod.prevPrice * prod.qty,
     0
   );
   const totalDiscount = cartItems.reduce(
@@ -22,7 +35,59 @@ const CartTotalCard = ({ isCart }) => {
     0
   );
   const deliveryCharges = 499;
-  const totalAmount = totalPrice + deliveryCharges;
+  const totalAmount = totalPrice - totalDiscount + deliveryCharges;
+
+  const getAddressInString = () =>
+    `${deliveryAddress.street}, ${deliveryAddress.city}, ${deliveryAddress.pincode}, ${deliveryAddress.state}, ${deliveryAddress.country}`;
+
+  const handlePayment = async () => {
+    const options = {
+      key: "rzp_test_wO2E6qFply0zx6",
+      amount: totalAmount * 100,
+      currency: "INR",
+      name: "GoGreen",
+      image: Plant,
+      description: "Test Transaction",
+      handler: function (response) {
+        // Handle the success callback
+        showToast("Order placed successfully!", "success");
+        const order = {
+          paymentId: response.razorpay_payment_id,
+          amount: totalAmount,
+          address: getAddressInString(),
+          mobile: deliveryAddress.mobile,
+          orderList: cartItems,
+        };
+        dispatch({ type: "SET_ORDER_DETAILS", payload: order });
+        cartItems.map((item) =>
+          removeFromCart(item._id, productDispatch, showToast)
+        );
+        navigate("/profile");
+      },
+      prefill: {
+        name: deliveryAddress.name,
+        email: userDetails?.email,
+        contact: deliveryAddress.mobile,
+      },
+      notes: {
+        address: getAddressInString(),
+      },
+      theme: {
+        color: "#a0f7cd",
+      },
+    };
+
+    const razorpayInstance = new window.Razorpay(options);
+    razorpayInstance.open();
+  };
+
+  const handlePlaceOrder = () => {
+    if (Object.keys(deliveryAddress).length) {
+      handlePayment();
+    } else {
+      showToast("Please add address to place order", "error");
+    }
+  };
 
   return (
     <div className="cart-total-card">
@@ -105,7 +170,7 @@ const CartTotalCard = ({ isCart }) => {
       )}
 
       {!isCart && (
-        <button className="order-btn" onClick={() => navigate("/checkout")}>
+        <button className="order-btn" onClick={handlePlaceOrder}>
           Place Order
         </button>
       )}

@@ -78,3 +78,41 @@
 .profile-card p span{
     color: var(--dark-primary);
 }
+
+.profile-page .order-details{
+    font-size: 14px
+}
+
+.profile-page .order-details p{
+    padding: 3px 0;
+}
+
+.profile-page .order-details span{
+    font-weight: 600;
+}
+
+.profile-page .order-details .rupees-icon{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.order-details .order-item{
+    display: flex;
+    height: 150px;
+    margin: 5px;
+    border:1px solid var(--dark-primary)
+}
+
+.order-details .order-item .order-image{
+    height: 150px;
+    width: 130px;
+}
+
+.order-details .order-item .details-div{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.details-div .name{
+    font-weight: 600;
+}

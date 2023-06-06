@@ -11,6 +11,8 @@ const Cart = () => {
   const navigate = useNavigate();
   const cartCount = cartItems.length;
 
+  console.log("cartItems", cartItems.length, cartItems);
+
   return (
     <div className="cart-page">
       <p className="heading">{`My Cart  (${cartCount})`}</p>
